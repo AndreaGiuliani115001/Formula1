@@ -79,24 +79,24 @@ public class TrackAndPlayerConfig {
             String[] parts = line.trim().split(",");
             int x = Integer.parseInt(parts[0].trim());
             int y = Integer.parseInt(parts[1].trim());
-            Cell cell = track.getCellAt(x, y);
+            Cell cellToConfig = track.getCellAt(x, y);
 
             switch (cellType) {
 
                 case "start":
-                    cell.setStartCell(true);
-                    cell.setTrack(true);
-                    track.addStartLine(cell);
+                    cellToConfig.setStartCell(true);
+                    cellToConfig.setTrack(true);
+                    track.addStartLine(cellToConfig);
                     break;
 
                 case "finish":
-                    cell.setFinishCell(true);
-                    cell.setTrack(true);
-                    track.addFinishLine(cell);
+                    cellToConfig.setFinishCell(true);
+                    cellToConfig.setTrack(true);
+                    track.addFinishLine(cellToConfig);
                     break;
 
                 case "track":
-                    cell.setTrack(true);
+                    cellToConfig.setTrack(true);
                     break;
 
             }
@@ -126,16 +126,15 @@ public class TrackAndPlayerConfig {
 
             if ("BOT".equals(playerType)) {
                 player = new BotPlayer(playerName, currentPosition);
-                track.addPlayer(player);
 
             } else if ("HUMAN".equals(playerType)) {
                 player = new HumanPlayer(playerName, currentPosition);
-                track.addPlayer(player);
 
             } else {
                 throw new IllegalArgumentException("Tipo di player non valido: " + playerType);
             }
 
+            track.addPlayer(player);
         }
     }
 

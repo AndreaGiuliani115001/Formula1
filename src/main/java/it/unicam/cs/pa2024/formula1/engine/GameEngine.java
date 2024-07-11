@@ -3,6 +3,7 @@ package it.unicam.cs.pa2024.formula1.engine;
 import it.unicam.cs.pa2024.formula1.player.Player;
 import it.unicam.cs.pa2024.formula1.track.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class GameEngine {
     public GameEngine(Track track) {
         this.track = track;
         this.raceInProgress = false;
-        this.turnCounter = 0;
+        this.turnCounter = 1;
     }
 
     /**
@@ -34,6 +35,8 @@ public class GameEngine {
 
         //logica per il coordinamento della gara
         while (raceInProgress) {
+
+            System.out.println("Siamo al " + turnCounter + " turno");
 
             updateRaceState();
             track.displayTrack();
@@ -55,11 +58,13 @@ public class GameEngine {
      */
     private void updateRaceState() {
         List<Player> players = track.getPlayers();
+        Iterator<Player> iterator = players.iterator();
 
-        for (Player player : players) {
+        while (iterator.hasNext()) {
 
-            player.makeMove();
-            checkPlayerPosition(player);
+            Player player = iterator.next();
+            player.makeMove(track);
+            checkPlayerPosition(player, iterator);
 
         }
     }
@@ -67,13 +72,15 @@ public class GameEngine {
     /**
      * Controlla la posizione del giocatore e aggiorna lo stato della gara se necessario.
      *
-     * @param player Il giocatore di cui controllare la posizione.
+     * @param player   Il giocatore di cui controllare la posizione.
+     * @param iterator
      */
-    private void checkPlayerPosition(Player player) {
-        Cell cell = track.getCellAt(player.getX(), player.getY());
+    private void checkPlayerPosition(Player player, Iterator<Player> iterator) {
+        Cell cell = player.getCurrentPosition();
         if (cell == null || !cell.isTrack()) {
             System.out.println(player.getName() + " è uscito dal tracciato e viene eliminato!");
-            track.getPlayers().remove(player);
+            iterator.remove();
+            if(!iterator.hasNext()) raceInProgress = false;
         } else if (cell.isFinishCell()) {
             System.out.println(player.getName() + " ha tagliato il traguardo e vince la gara!");
             raceInProgress = false;

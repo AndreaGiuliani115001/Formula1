@@ -48,6 +48,7 @@ public class Main {
                 case 1:
                     GameEngine gameEngine = new GameEngine(track);
                     gameEngine.startRace();
+                    running = false;
                     break;
                 case 2:
                     System.out.println("Chiusura del gioco...");

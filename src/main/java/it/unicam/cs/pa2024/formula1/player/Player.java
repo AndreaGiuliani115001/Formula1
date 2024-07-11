@@ -1,6 +1,7 @@
 package it.unicam.cs.pa2024.formula1.player;
 
 import it.unicam.cs.pa2024.formula1.track.Cell;
+import it.unicam.cs.pa2024.formula1.track.Track;
 
 /**
  * Interfaccia che rappresenta un giocatore nel gioco.
@@ -44,6 +45,8 @@ public interface Player {
     /**
      * Effettua una mossa per il giocatore.
      * Questo metodo è chiamato per far compiere una mossa al giocatore.
+     *
+     * @param track il tracciato su cui il giocatore si muove.
      */
-    void makeMove();
+    void makeMove(Track track);
 }

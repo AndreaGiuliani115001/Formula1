@@ -37,6 +37,7 @@ public class Track {
         for (int i = 0; i < height; i++) {
 
             List<Cell> row = new ArrayList<>();
+
             for (int j = 0; j < width; j++) {
                 row.add(new Cell(j, i, false, false, false));
             }
@@ -173,25 +174,13 @@ public class Track {
      */
     public void displayTrack() {
 
-        // Stampa intestazione della griglia
-        System.out.print("   ");
-
-        for (int x = 0; x < grid.get(0).size(); x++) {
-            System.out.print(x + "   ");
-        }
-
-        System.out.println();
-
-        // Stampa corpo della griglia
         for (int y = 0; y < grid.size(); y++) {
-
-            System.out.print(y + "  ");
 
             for (int x = 0; x < grid.get(0).size(); x++) {
 
                 if (isCellOccupiedByPlayer(x, y)) {
                     Player player = getPlayerAtCell(x, y);
-                    System.out.print(player.getName().charAt(0) + "   ");// Mostra l'iniziale del nome del giocatore
+                    System.out.print(player.getName().charAt(0) + "   "); // Mostra l'iniziale del nome del giocatore
 
                 } else {
                     Cell cell = getCellAt(x, y);

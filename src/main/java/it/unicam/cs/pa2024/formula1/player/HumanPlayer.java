@@ -1,6 +1,6 @@
 package it.unicam.cs.pa2024.formula1.player;
 
-import it.unicam.cs.pa2024.formula1.track.Cell;
+import it.unicam.cs.pa2024.formula1.track.*;
 
 /**
  * Classe che rappresenta un giocatore interattivo (umano).
@@ -65,7 +65,7 @@ public class HumanPlayer implements Player {
      * {@inheritDoc}
      */
     @Override
-    public void makeMove() {
+    public void makeMove(Track track) {
         //da fare
     }
 }
