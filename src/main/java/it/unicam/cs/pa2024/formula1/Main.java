@@ -22,14 +22,19 @@ public class Main {
 
         scanner.nextLine();
 
-        System.out.print("Inserisci il percorso del file di configurazione del tracciato e dei player: ");
-        String path = scanner.nextLine();
+        System.out.println("Hai già il file di configurazione del tracciato? S/N");
+        String answer = scanner.nextLine();
 
-        try {
-            track = new Track(width, height, path);
-        } catch (Exception e) {
-            System.err.println("Errore nella creazione del tracciato: " + e.getMessage());
-        }
+        if (answer.startsWith("S")) {
+            System.out.print("Inserisci il percorso del file di configurazione del tracciato e dei player: ");
+            String path = scanner.nextLine();
+            try {
+                track = new Track(width, height, path);
+            } catch (Exception e) {
+                System.err.println("Errore nella creazione del tracciato: " + e.getMessage());
+            }
+        } else track = new Track(width, height);
+
 
         System.out.println();
 
@@ -38,7 +43,9 @@ public class Main {
         boolean running = true;
         while (running) {
             System.out.println("\nCosa vuoi fare?");
-            System.out.println("1. Inizia la gara");
+            if (track.getPlayers().size() == 0) {
+                System.out.println("1. Costruisci un nuovo tracciato e definisci nuovi player");
+            } else System.out.println("1. Inizia la gara");
             System.out.println("2. Chiusura del gioco");
 
             int choice = scanner.nextInt();
@@ -46,14 +53,36 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    GameEngine gameEngine = new GameEngine(track);
-                    gameEngine.startRace();
-                    running = false;
+
+                    if (track.getPlayers().size() == 0) {
+
+                        System.out.print("Inserisci il percorso del file di configurazione del tracciato e dei player: ");
+                        String path = scanner.nextLine();
+
+                        TrackAndPlayerConfig config = new TrackAndPlayerConfig(path);
+
+                        try {
+                            config.loadTrack(track);
+                        } catch (Exception e) {
+                            System.err.println("Errore nella lettura del file: " + e.getMessage());
+                        }
+
+                        System.out.println();
+                        track.displayTrack();
+                        break;
+
+                    } else {
+                        GameEngine gameEngine = new GameEngine(track);
+                        gameEngine.startRace();
+                        running = false;
+                    }
                     break;
+
                 case 2:
                     System.out.println("Chiusura del gioco...");
                     running = false;
                     break;
+
                 default:
                     System.out.println("Scelta non valida, riprova.");
                     break;

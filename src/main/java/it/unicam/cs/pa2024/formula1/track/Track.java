@@ -19,16 +19,14 @@ public class Track {
     private List<Cell> finishLine;
     private List<Player> players;
 
+
     /**
-     * Costruttore per creare una nuova griglia, con larghezza e altezza specifiche,
-     * e definire un nuovo tracciato da configurare tramite file.
+     * Costruttore per creare una nuova griglia, con larghezza e altezza specifiche.
      *
-     * @param width          La larghezza della griglia (numero di colonne).
-     * @param height         L'altezza della griglia (numero di righe).
-     * @param configFilePath Il percorso del file di configurazione del tracciato.
-     * @throws IOException Se si verifica un errore durante la lettura del file di configurazione.
+     * @param width  La larghezza della griglia (numero di colonne).
+     * @param height L'altezza della griglia (numero di righe).
      */
-    public Track(int width, int height, String configFilePath) throws IOException {
+    public Track(int width, int height) {
         this.grid = new ArrayList<>();
         this.startLine = new ArrayList<>();
         this.finishLine = new ArrayList<>();
@@ -45,10 +43,25 @@ public class Track {
             this.grid.add(row);
 
         }
+    }
+
+    /**
+     * Costruttore per creare una nuova griglia, con larghezza e altezza specifiche,
+     * e definire un nuovo tracciato da configurare tramite file.
+     *
+     * @param width          La larghezza della griglia (numero di colonne).
+     * @param height         L'altezza della griglia (numero di righe).
+     * @param configFilePath il percorso del file di configurazione del tracciato.
+     * @throws IOException Se si verifica un errore durante la lettura del file di configurazione.
+     */
+    public Track(int width, int height, String configFilePath) throws IOException {
+        this(width, height);
 
         // Inizio della configurazione del tracciato
-        TrackAndPlayerConfig config = new TrackAndPlayerConfig(configFilePath);
-        config.loadTrack(this);
+        if (configFilePath != null) {
+            TrackAndPlayerConfig config = new TrackAndPlayerConfig(configFilePath);
+            config.loadTrack(this);
+        }
     }
 
     /**
