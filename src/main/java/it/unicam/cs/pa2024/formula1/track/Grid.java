@@ -2,7 +2,6 @@ package it.unicam.cs.pa2024.formula1.track;
 
 import it.unicam.cs.pa2024.formula1.player.Player;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -80,7 +79,7 @@ public interface Grid {
     Player getPlayerAtCell(int x, int y);
 
     /**
-     * Visualizza il tracciato.
+     * Visualizza la griglia e il tracciato.
      */
     void displayTrack();
 

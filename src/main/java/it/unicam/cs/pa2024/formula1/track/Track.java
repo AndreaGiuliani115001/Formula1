@@ -65,57 +65,49 @@ public class Track implements Grid{
     }
 
     /**
-     * Aggiunge una cella alla lista della linea di partenza.
-     *
-     * @param startCell La cella della linea di partenza da aggiungere.
+     * {@inheritDoc}
      */
+    @Override
     public void addStartLine(Cell startCell) {
         this.startLine.add(startCell);
     }
 
     /**
-     * Aggiunge una cella alla lista della linea di arrivo.
-     *
-     * @param finishLine La cella della linea di arrivo da aggiungere.
+     * {@inheritDoc}
      */
+    @Override
     public void addFinishLine(Cell finishLine) {
         this.finishLine.add(finishLine);
     }
 
     /**
-     * Restituisce la griglia di celle.
-     *
-     * @return La griglia di celle.
+     * {@inheritDoc}
      */
+    @Override
     public List<List<Cell>> getGrid() {
         return grid;
     }
 
     /**
-     * Restituisce la lista delle celle che rappresentano la linea di partenza del tracciato.
-     *
-     * @return La lista delle celle della linea di partenza.
+     * {@inheritDoc}
      */
+    @Override
     public List<Cell> getStartLine() {
         return startLine;
     }
 
     /**
-     * Restituisce la lista delle celle che rappresentano la linea di arrivo del tracciato.
-     *
-     * @return La lista delle celle della linea di arrivo.
+     * {@inheritDoc}
      */
+    @Override
     public List<Cell> getFinishLine() {
         return finishLine;
     }
 
     /**
-     * Restituisce la cella alla posizione specificata nella griglia.
-     *
-     * @param x La coordinata x della cella.
-     * @param y La coordinata y della cella.
-     * @return La cella alla posizione specificata, o null se non esiste.
+     * {@inheritDoc}
      */
+    @Override
     public Cell getCellAt(int x, int y) {
 
         if (y >= 0 && y < grid.size()) {
@@ -129,21 +121,17 @@ public class Track implements Grid{
     }
 
     /**
-     * Restituisce la lista dei giocatori.
-     *
-     * @return La lista dei giocatori.
+     * {@inheritDoc}
      */
+    @Override
     public List<Player> getPlayers() {
         return players;
     }
 
     /**
-     * Verifica se una determinata cella nella griglia è occupata da un giocatore.
-     *
-     * @param x La coordinata X della cella da verificare.
-     * @param y La coordinata Y della cella da verificare.
-     * @return true se la cella alle coordinate specificate è occupata da un giocatore, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isCellOccupiedByPlayer(int x, int y) {
 
         for (Player player : players) {
@@ -156,12 +144,9 @@ public class Track implements Grid{
     }
 
     /**
-     * Restituisce il giocatore che occupa la cella specificata.
-     *
-     * @param x La coordinata x della cella.
-     * @param y La coordinata y della cella.
-     * @return Il giocatore che occupa la cella, o null se la cella non è occupata.
+     * {@inheritDoc}
      */
+    @Override
     public Player getPlayerAtCell(int x, int y) {
 
         for (Player player : players) {
@@ -174,8 +159,9 @@ public class Track implements Grid{
     }
 
     /**
-     * Visualizza il tracciato.
+     * {@inheritDoc}
      */
+    @Override
     public void displayTrack() {
 
         for (int y = 0; y < grid.size(); y++) {
@@ -209,12 +195,9 @@ public class Track implements Grid{
     }
 
     /**
-     * Calcola la distanza tra due celle.
-     *
-     * @param cell1 La prima cella da confrontare.
-     * @param cell2 la seconda cella da confrontare.
-     * @return La distanza tra le due celle.
+     * {@inheritDoc}
      */
+    @Override
     public double calculateDistance(Cell cell1, Cell cell2) {
 
         int dx = cell1.getX() - cell2.getX();

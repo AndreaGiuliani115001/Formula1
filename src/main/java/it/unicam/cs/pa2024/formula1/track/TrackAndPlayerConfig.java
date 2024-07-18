@@ -1,8 +1,6 @@
 package it.unicam.cs.pa2024.formula1.track;
 
-import it.unicam.cs.pa2024.formula1.player.BotPlayer;
-import it.unicam.cs.pa2024.formula1.player.HumanPlayer;
-import it.unicam.cs.pa2024.formula1.player.Player;
+import it.unicam.cs.pa2024.formula1.player.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,11 +28,9 @@ public class TrackAndPlayerConfig implements Reader{
 
 
     /**
-     * Legge le righe dal file di configurazione specificato.
-     *
-     * @param track Griglia da aggiornare con le informazioni del tracciato nel file.
-     * @throws IOException Se si verifica un errore durante la lettura del file.
+     * {@inheritDoc}
      */
+    @Override
     public void loadTrack(Track track) throws IOException {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {

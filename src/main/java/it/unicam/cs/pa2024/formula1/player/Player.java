@@ -5,8 +5,6 @@ import it.unicam.cs.pa2024.formula1.track.Track;
 
 /**
  * Interfaccia che rappresenta un giocatore nel gioco.
- * Definisce i metodi che devono essere implementati da ogni tipo di giocatore,
- * che sia un giocatore interattivo (umano) o programmato (bot).
  */
 public interface Player {
     /**

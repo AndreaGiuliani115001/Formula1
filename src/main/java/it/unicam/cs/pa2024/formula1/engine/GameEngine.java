@@ -8,7 +8,7 @@ import java.util.Iterator;
 /**
  * Classe che gestisce le regole e il coordinamento della gara.
  */
-public class GameEngine implements Engine{
+public class GameEngine implements Engine {
 
     private final Track track;
     private boolean raceInProgress;
@@ -26,8 +26,9 @@ public class GameEngine implements Engine{
     }
 
     /**
-     * Avvia la gara.
+     * {@inheritDoc}
      */
+    @Override
     public void startRace() {
         System.out.println("La gara sta per iniziare!");
         raceInProgress = true;
@@ -54,6 +55,14 @@ public class GameEngine implements Engine{
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRaceInProgress() {
+        return raceInProgress;
+    }
+
+    /**
      * Aggiorna lo stato della gara.
      */
     private void updateRaceState() {
@@ -65,7 +74,7 @@ public class GameEngine implements Engine{
             Player player = iterator.next();
             player.makeMove(track);
             checkPlayerPosition(player, iterator);
-            if(!this.isRaceInProgress()) break;
+            if (!this.isRaceInProgress()) break;
 
         }
     }
@@ -107,9 +116,5 @@ public class GameEngine implements Engine{
      */
     private void endRace() {
         System.out.println("Termine della gara");
-    }
-
-    public boolean isRaceInProgress() {
-        return raceInProgress;
     }
 }

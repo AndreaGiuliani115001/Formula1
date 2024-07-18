@@ -24,30 +24,30 @@ public interface Coordinate {
     int getY();
 
     /**
-     * Verifica se la cella è la linea di partenza.
+     * Verifica se la cella è di partenza.
      *
-     * @return true se la cella è la linea di partenza, false altrimenti.
+     * @return true se la cella è di partenza, false altrimenti.
      */
     boolean isStartCell();
 
     /**
-     * Imposta se la cella è la linea di partenza.
+     * Imposta se la cella è di partenza.
      *
-     * @param startCell true se la cella è la linea di partenza, false altrimenti.
+     * @param startCell true se la cella è di partenza, false altrimenti.
      */
     void setStartCell(boolean startCell);
 
     /**
-     * Verifica se la cella è la linea di arrivo.
+     * Verifica se la cella è di arrivo.
      *
-     * @return true se la cella è la linea di arrivo, false altrimenti.
+     * @return true se la cella è di arrivo, false altrimenti.
      */
     boolean isFinishCell();
 
     /**
-     * Imposta se la cella è la linea di arrivo.
+     * Imposta se la cella è di arrivo.
      *
-     * @param finishCell true se la cella è la linea di arrivo, false altrimenti.
+     * @param finishCell true se la cella è di arrivo, false altrimenti.
      */
     void setFinishCell(boolean finishCell);
 

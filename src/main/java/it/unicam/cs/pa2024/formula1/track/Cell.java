@@ -32,73 +32,65 @@ public class Cell implements Coordinate{
     }
 
     /**
-     * Restituisce la coordinata x della cella.
-     *
-     * @return La coordinata x della cella.
+     * {@inheritDoc}
      */
+    @Override
     public int getX() {
         return x;
     }
 
     /**
-     * Restituisce la coordinata y della cella.
-     *
-     * @return La coordinata y della cella.
+     * {@inheritDoc}
      */
+    @Override
     public int getY() {
         return y;
     }
 
     /**
-     * Verifica se la cella è la linea di partenza.
-     *
-     * @return true se la cella è la linea di partenza, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isStartCell() {
         return isStartCell;
     }
 
     /**
-     * Imposta se la cella è la linea di partenza.
-     *
-     * @param startCell true se la cella è la linea di partenza, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public void setStartCell(boolean startCell) {
         isStartCell = startCell;
     }
 
     /**
-     * Verifica se la cella è la linea di arrivo.
-     *
-     * @return true se la cella è la linea di arrivo, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isFinishCell() {
         return isFinishCell;
     }
 
     /**
-     * Imposta se la cella è la linea di arrivo.
-     *
-     * @param finishCell true se la cella è la linea di arrivo, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public void setFinishCell(boolean finishCell) {
         isFinishCell = finishCell;
     }
 
     /**
-     * Verifica se la cella fa parte del tracciato.
-     *
-     * @return true se la cella fa parte del tracciato, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isTrack() {
         return isTrack;
     }
 
     /**
-     * Imposta se la cella fa parte del tracciato.
-     *
-     * @param track true se la cella fa parte del tracciato, false altrimenti.
+     * {@inheritDoc}
      */
+    @Override
     public void setTrack(boolean track) {
         isTrack = track;
     }
