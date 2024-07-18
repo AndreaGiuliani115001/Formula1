@@ -13,7 +13,7 @@ import java.util.List;
  * - linea di inizio (startLine),
  * - linea di fine (finishLine).
  */
-public class Track {
+public class Track implements Grid{
     private List<List<Cell>> grid;
     private List<Cell> startLine;
     private List<Cell> finishLine;
@@ -129,15 +129,6 @@ public class Track {
     }
 
     /**
-     * Aggiunge un giocatore alla lista dei giocatori.
-     *
-     * @param player Il giocatore da aggiungere.
-     */
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
-
-    /**
      * Restituisce la lista dei giocatori.
      *
      * @return La lista dei giocatori.
@@ -215,6 +206,21 @@ public class Track {
             }
             System.out.println();
         }
+    }
+
+    /**
+     * Calcola la distanza tra due celle.
+     *
+     * @param cell1 La prima cella da confrontare.
+     * @param cell2 la seconda cella da confrontare.
+     * @return La distanza tra le due celle.
+     */
+    public double calculateDistance(Cell cell1, Cell cell2) {
+
+        int dx = cell1.getX() - cell2.getX();
+        int dy = cell1.getY() - cell2.getY();
+        return Math.sqrt(dx * dx + dy * dy);
+
     }
 
 }

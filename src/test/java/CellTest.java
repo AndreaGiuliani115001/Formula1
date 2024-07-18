@@ -12,7 +12,6 @@ public class CellTest {
     private Cell cell;
 
     /**
-     * Imposta il fixture di test.
      * Questo metodo viene chiamato prima di ogni metodo di test.
      */
     @BeforeEach

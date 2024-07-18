@@ -14,7 +14,7 @@ import java.io.IOException;
  * - Giocatori partecipanti alla gara (Umani e bot)
  * - Forma del tracciato, con relativa linea di inizio e fine.
  */
-public class TrackAndPlayerConfig {
+public class TrackAndPlayerConfig implements Reader{
 
     private final String configFilePath;
 
@@ -25,7 +25,7 @@ public class TrackAndPlayerConfig {
      * @param configFilePath Percorso del file di configurazione da cui leggere i dati.
      */
     public TrackAndPlayerConfig(String configFilePath) {
-        this.configFilePath = configFilePath;
+        this.configFilePath = "src/main/resources/" + configFilePath;
     }
 
 
@@ -134,7 +134,7 @@ public class TrackAndPlayerConfig {
                 throw new IllegalArgumentException("Tipo di player non valido: " + playerType);
             }
 
-            track.addPlayer(player);
+            track.getPlayers().add(player);
         }
     }
 

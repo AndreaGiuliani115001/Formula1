@@ -1,15 +1,14 @@
 package it.unicam.cs.pa2024.formula1.engine;
 
-import it.unicam.cs.pa2024.formula1.player.Player;
+import it.unicam.cs.pa2024.formula1.player.*;
 import it.unicam.cs.pa2024.formula1.track.*;
 
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Classe che gestisce le regole e il coordinamento della gara.
  */
-public class GameEngine {
+public class GameEngine implements Engine{
 
     private final Track track;
     private boolean raceInProgress;
@@ -37,6 +36,7 @@ public class GameEngine {
         while (raceInProgress) {
 
             System.out.println("Siamo al " + turnCounter + " turno");
+            System.out.println();
 
             updateRaceState();
             track.displayTrack();
@@ -57,14 +57,15 @@ public class GameEngine {
      * Aggiorna lo stato della gara.
      */
     private void updateRaceState() {
-        List<Player> players = track.getPlayers();
-        Iterator<Player> iterator = players.iterator();
+
+        Iterator<Player> iterator = track.getPlayers().iterator();
 
         while (iterator.hasNext()) {
 
             Player player = iterator.next();
             player.makeMove(track);
             checkPlayerPosition(player, iterator);
+            if(!this.isRaceInProgress()) break;
 
         }
     }
@@ -77,11 +78,25 @@ public class GameEngine {
      */
     private void checkPlayerPosition(Player player, Iterator<Player> iterator) {
         Cell cell = player.getCurrentPosition();
+
         if (cell == null || !cell.isTrack()) {
+
             System.out.println(player.getName() + " è uscito dal tracciato e viene eliminato!");
-            iterator.remove();
-            if(!iterator.hasNext()) raceInProgress = false;
+            track.getPlayers().remove(player);
+
+            if (track.getPlayers().size() == 1) {
+
+                System.out.println("Vittoria a tavolino!");
+                raceInProgress = false;
+
+            } else if (track.getPlayers().size() == 0) {
+
+                System.out.println("Tutti i giocatori sono usciti dal tracciato! nessuna vittoria...");
+                raceInProgress = false;
+            }
+
         } else if (cell.isFinishCell()) {
+
             System.out.println(player.getName() + " ha tagliato il traguardo e vince la gara!");
             raceInProgress = false;
         }
@@ -90,8 +105,11 @@ public class GameEngine {
     /**
      * Termina la gara.
      */
-    public void endRace() {
-        System.out.println("La gara è terminata!");
-        raceInProgress = false;
+    private void endRace() {
+        System.out.println("Termine della gara");
+    }
+
+    public boolean isRaceInProgress() {
+        return raceInProgress;
     }
 }

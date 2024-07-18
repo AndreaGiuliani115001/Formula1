@@ -73,59 +73,89 @@ public class BotPlayer implements Player {
     @Override
     public void makeMove(Track track) {
 
+        //tutte le possibili direzioni del giocatore bot
         int[] dx = {1, 0, 1, -1, 0, -1, 1, -1};
         int[] dy = {0, 1, 1, 0, -1, -1, -1, 1};
+
         Random randomMovement = new Random();
 
-        if (this.currentPosition.isStartCell()) {
+        Cell principalPoint = calculatePrincipalPoint(track);
+        List<Cell> eightNeighborsValid = new ArrayList<>();
+        List<Cell> eightNeighborsNotValid = new ArrayList<>();
 
+        if (!principalPoint.equals(this.currentPosition)) eightNeighborsValid.add(principalPoint);
 
-            int indexRandomMovement = randomMovement.nextInt(dx.length);
+        for (int i = 0; i < dx.length; i++) {
 
-            //calcolo random della prima direzione da prendere
-            int xDirection = dx[indexRandomMovement];
-            int yDirection = dy[indexRandomMovement];
+            Cell neighbors = track.getCellAt(principalPoint.getX() + dx[i], principalPoint.getY() + dy[i]);
 
-            int x = this.getX() + xDirection;
-            int y = this.getY() + yDirection;
+            if (isValidMove(track, neighbors) && !neighbors.equals(this.lastPosition)) {
 
-            if (track.getCellAt(x, y) != null
-                    &&
-                    !track.isCellOccupiedByPlayer(x, y)
-                    &&
-                    !track.getCellAt(x, y).isStartCell()
-                    &&
-                    track.getCellAt(x, y).isTrack()) {
+                eightNeighborsValid.add(neighbors);
 
-                this.lastPosition = this.currentPosition;
-                this.setCurrentPosition(track.getCellAt(x, y));
-            } else makeMove(track);
+            } else eightNeighborsNotValid.add(neighbors);
+        }
 
-        } else {
+        this.lastPosition = currentPosition;
 
-            //calcolo del punto principale
-            int xDif = this.lastPosition.getX() + this.currentPosition.getX();
-            int yDif = this.lastPosition.getY() + this.currentPosition.getY();
-            int xPrincipalPoint = xDif + this.currentPosition.getX();
-            int yPrincipalPoint = yDif + this.currentPosition.getY();
-            Cell principalPoint = track.getCellAt(xPrincipalPoint, yPrincipalPoint);
+        if (!eightNeighborsValid.isEmpty()) {
 
-            //calcolo degli otto vicini del punto principale
-            List<Cell> eightNeighbors = new ArrayList<>();
-            eightNeighbors.add(principalPoint);
+            List<Cell> closestCells = new ArrayList<>();
+            double minDistance = Double.MAX_VALUE;
 
-            for (int i = 0; i < dx.length; i++) {
-                if (track.getCellAt(principalPoint.getX() + dx[i], principalPoint.getY() + dy[i]) != null) {
-                    eightNeighbors.add(track.getCellAt(principalPoint.getX() + dx[i], principalPoint.getY() + dy[i]));
+            for (Cell validCell : eightNeighborsValid) {
+                for (Cell finishCell : track.getFinishLine()) {
+                    double distance = track.calculateDistance(validCell, finishCell);
+                    if (distance < minDistance) {
+                        closestCells.add(validCell);
+                        minDistance = distance;
+                    }
                 }
             }
 
-            this.lastPosition = currentPosition;
-            int indexRandomMovement = randomMovement.nextInt(eightNeighbors.size());
-            this.currentPosition = eightNeighbors.get(indexRandomMovement);
+            int indexRandomMovement = randomMovement.nextInt(closestCells.size());
+            this.currentPosition = closestCells.get(indexRandomMovement);
 
+        } else {
+            int indexRandomMovement = randomMovement.nextInt(eightNeighborsNotValid.size());
+            this.currentPosition = eightNeighborsNotValid.get(indexRandomMovement);
         }
-
     }
+
+
+    /**
+     * Verifica se una mossa è valida in base alla posizione specificata.
+     * Una cella è considerata come posizione valida se: fa parte del tracciato,
+     * non è già occupata da un player e se fa parte della griglia (!= null).
+     *
+     * @param track        Il tracciato su cui si muove il giocatore.
+     * @param cellToVerify la cella da verificare.
+     * @return {@code true} se la cella è valida per il movimento; {@code false} altrimenti.
+     */
+    private boolean isValidMove(Track track, Cell cellToVerify) {
+        return (cellToVerify != null && !track.isCellOccupiedByPlayer(cellToVerify.getX(), cellToVerify.getY()) && cellToVerify.isTrack());
+    }
+
+    /**
+     * Calcola il punto principale basato sulle posizioni attuale e precedente del giocatore.
+     *
+     * @param track Il tracciato su cui si muove il giocatore.
+     * @return La cella che rappresenta il punto principale.
+     */
+    private Cell calculatePrincipalPoint(Track track) {
+
+        if (this.currentPosition.isStartCell()) return this.currentPosition;
+
+        int xDif = this.currentPosition.getX() - this.lastPosition.getX();
+        int yDif = this.currentPosition.getY() - this.lastPosition.getY();
+        int xPrincipalPoint = this.currentPosition.getX() + xDif;
+        int yPrincipalPoint = this.currentPosition.getY() + yDif;
+
+        Cell principalPoint = track.getCellAt(xPrincipalPoint, yPrincipalPoint);
+
+        if (isValidMove(track, principalPoint)) return principalPoint;
+        else return this.currentPosition;
+    }
+
 }
 

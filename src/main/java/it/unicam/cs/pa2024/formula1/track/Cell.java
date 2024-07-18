@@ -7,7 +7,7 @@ package it.unicam.cs.pa2024.formula1.track;
  * Cella di fine tracciato (isFinishCell),
  * Cella che fa parte del tracciato (isTrack).
  */
-public class Cell {
+public class Cell implements Coordinate{
     private final int x;
     private final int y;
     private boolean isStartCell;

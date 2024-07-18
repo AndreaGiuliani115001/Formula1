@@ -1,0 +1,11 @@
+START_CELL: 
+0, 0
+
+FINISH_CELL: 
+4, 4
+
+TRACK_CELL: 
+2,2
+
+PLAYER:
+BOT, Andrea, 0, 0

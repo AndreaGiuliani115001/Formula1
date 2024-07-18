@@ -14,7 +14,7 @@ public class HumanPlayer implements Player {
     /**
      * Costruttore per creare un nuovo BotPlayer con il nome e la posizione specificati.
      *
-     * @param name Il nome del bot.
+     * @param name Il nome del giocatore interattivo.
      * @param currentPosition la posizione corrente del giocatore (cella).
      */
     public HumanPlayer(String name, Cell currentPosition) {

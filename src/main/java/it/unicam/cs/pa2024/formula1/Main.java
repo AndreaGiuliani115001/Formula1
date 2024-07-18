@@ -26,7 +26,7 @@ public class Main {
         String answer = scanner.nextLine();
 
         if (answer.startsWith("S")) {
-            System.out.print("Inserisci il percorso del file di configurazione del tracciato e dei player: ");
+            System.out.print("Inserisci il nome del file di configurazione del tracciato e dei player: ");
             String path = scanner.nextLine();
             try {
                 track = new Track(width, height, path);
@@ -56,7 +56,7 @@ public class Main {
 
                     if (track.getPlayers().size() == 0) {
 
-                        System.out.print("Inserisci il percorso del file di configurazione del tracciato e dei player: ");
+                        System.out.print("Inserisci il nome del file di configurazione del tracciato e dei player: ");
                         String path = scanner.nextLine();
 
                         TrackAndPlayerConfig config = new TrackAndPlayerConfig(path);
