@@ -82,7 +82,7 @@ public class GameEngine implements Engine{
         if (cell == null || !cell.isTrack()) {
 
             System.out.println(player.getName() + " è uscito dal tracciato e viene eliminato!");
-            track.getPlayers().remove(player);
+            iterator.remove();
 
             if (track.getPlayers().size() == 1) {
 
